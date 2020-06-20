@@ -1,0 +1,205 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.findFly {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    background-color: grey;
+
+    #containerTakeOff,
+    #containerLanding {
+        background-color: whitesmoke;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        max-width: 200px;
+        min-width: 100px;
+
+        label {
+            width: 25%;
+            min-width: 70px;
+        }
+
+        .takeOffDate,
+        .landingDate {
+            width: 50%;
+            min-width: 70px;
+            border: none;
+            border-bottom: 2px solid dodgerblue;
+            background-color: inherit;
+            cursor: pointer;
+            text-align: right;
+        }
+
+        i {
+            width: 10%;
+            min-width: 20px;
+            text-align: center;
+            border-bottom: 2px solid dodgerblue;
+        }
+
+        .landingDate:disabled {
+            background: #ccc;
+        }
+    }
+
+
+    #iconAirportSwitch {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        width: 10%;
+
+
+        #imgIconAirportSwitch {
+
+            margin: auto;
+            cursor: pointer;
+        }
+    }
+
+    div {
+        padding: 10px;
+        width: 35%;
+        text-align: left;
+
+        input {
+            width: 100%;
+        }
+
+        #TableImputFrom,
+        #TableImputTo {
+            position: absolute;
+            width: inherit;
+            font-size: 70%;
+            background-color: whitesmoke;
+            margin: 5px;
+            border-collapse: collapse;
+
+            td {
+                border: 1px solid black;
+            }
+
+            tr:hover {
+                background-color: gray;
+            }
+        }
+
+    }
+
+}
+
+#result {
+    left: 20%;
+    top: 10%;
+    background-color: yellow;
+    width: 5%;
+}
+
+.classTypesContainerHide {
+    display: none;
+}
+
+.classTypesContainerDisplay {
+    display: grid;
+    min-width: 200px;
+    min-height: 200px;
+    background-color: grey;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.classTypeButton {
+    background-color: white;
+}
+
+.classTypeButtonSelected {
+    background-color: blue;
+}
+
+.passengerTypesContainerHide {
+    display: none;
+}
+
+.classTypeButtonProposition {
+    background-color: yellow;
+}
+
+.passengerTypesContainerDisplay {
+    display: grid;
+    min-width: 200px;
+    min-height: 200px;
+    background-color: grey;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+.calendarContainerHide {
+    display: none;
+}
+
+
+.calendarContainerDisplay {
+    display: grid;
+    min-width: 200px;
+    min-height: 200px;
+    background-color: grey;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    #closeCalendar {
+        cursor: pointer;
+    }
+
+    #CalendarMainDiv {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        background-color: whitesmoke;
+        min-height: 230px;
+    }
+
+    .MonthHeader {
+        margin: 5px;
+        padding: 15px;
+
+        .fa {
+            padding-left: 10px;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+    }
+
+    .cellCalendar:hover {
+        background-color: lightblue;
+    }
+
+    .cellCalendar {
+        border: 1px solid black;
+    }
+
+    .cellCalendarSelected {
+        background-color: blue;
+    }
+
+    .cellCalendarInitialSelected {
+        background-color: blue;
+    }
+
+    .cellCalendarBetweenDates {
+        background-color: lightgreen;
+    }
+
+}

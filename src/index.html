@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body id="body">
+    <header>header</header>
+    <nav id="nav1" class="nav1">
+        nav1
+    </nav>
+
+    <article id="article1" class="findFly">
+        <div>
+            <label for="inputFrom">From</label>
+            <input id="inputFrom" type="text">
+            <table id="TableImputFrom"></table>
+        </div>
+        <!-- <img src=<%=require("../img/005-arrow-1.png")%> alt="switch"> -->
+
+        <div id="iconAirportSwitch">
+            <img id="imgIconAirportSwitch" src="./img/005-arrow-1.png" alt="">
+
+        </div>
+        <div>
+            <label for="inputTo">To</label>
+            <input id="inputTo" type="text">
+            <table id="TableImputTo"></table>
+        </div>
+        <div id="goFurther">GO
+
+        </div>
+        <div id="containerTakeOff">
+            <label for="takeOffDate"> start date</label>
+            <input id="takeOffDate" class="takeOffDate" type="text" readonly="readonly">
+            <i class="fa fa-calendar icon"></i>
+        </div>
+        <div id="containerLanding">
+            <label for="landingDate"> return date</label>
+            <input id="landingDate" class="landingDate" type="text" readonly="readonly">
+            <i class="fa fa-calendar icon"></i>
+        </div>
+        <div id="whatWayContainer">
+            <label for="whatWayCheckBox1">Round-trip flight</label>
+            <input id="whatWayCheckBox1" type="checkbox" checked>
+            <span class="checkmark"></span>
+            <label for="whatWayCheckBox2">One-way flight</label>
+            <input id="whatWayCheckBox2" type="checkbox">
+            <span class="checkmark"></span>
+        </div>
+        <div id="passengerTypes">
+            <label for="passengerTypesButId"> Number of passengers</label>
+            <button id="passengerTypesButId" class="passengerTypes-button">Test</button>
+            <i class="fa fa-angle-down"></i>
+        </div>
+        <div id="classTypes">
+            <label for="classTypesButId"> Class type</label>
+            <button id="classTypesButId" class="classTypes-button"></button>
+            <i class="fa fa-angle-down"></i>
+        </div>
+        <div id="result">
+            <!-- <a id="resHtml" href="seatsReservation.html">asdaa</a> -->
+        </div>
+
+    </article>
+
+    <div id="calendarContainer" class="calendarContainerHide"> Select your date
+        <i id="closeCalendar" class="fa fa-close icon"></i>
+        <div id="calenarHeader">Month
+        </div>
+
+        <div id="tableCalendarPlaceHolder">
+        </div>
+    </div>
+
+
+    <div id="passengerTypesContainer" class="passengerTypesContainerHide"></div>
+    <div id="classTypesContainer" class="classTypesContainerHide"> </div>
+
+    <footer></footer>
+
+
+    <!-- <script src=" bundle.js"></script> nie potrzebny bo bedzie dodany przez build -->
+    <!-- <script src="./index.js"></script> -->
+    <!-- <script src="./airports.js"></script> -->
+    <!-- <script src="./js/moment.js"></script> -->
+</body>
+
+</html>
