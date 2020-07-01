@@ -4,11 +4,9 @@ import {
     objUserSelections
 } from './index.js';
 
-
 import {
     deleteClassTypesContainer
 } from "./dropDownClass";
-
 
 let vPassengerTypesContainer = document.getElementById("passengerTypesContainer");
 
@@ -25,7 +23,6 @@ export function passengersCreateStrucutre() {
     } else {
         deletePassengerTypesContainer();
     }
-
 }
 
 
@@ -35,7 +32,7 @@ function passengersCreateItems() {
     let vPassengerTypesDivButtonsConfirm = document.createElement("button");
 
     arrPassengersTypes.forEach(function (element, index) {
-        console.log(element);
+        // console.log(element);
 
         let vPassengerTypesDivPlaceholder = document.createElement("div");
         let vPassengerTypesDivText = document.createElement("div");
@@ -47,17 +44,21 @@ function passengersCreateItems() {
 
         vPassengerTypesContainer.appendChild(vPassengerTypesDivPlaceholder);
         vPassengerTypesDivPlaceholder.setAttribute("id", "PassengerTypesDivPlaceholder" + index);
+        vPassengerTypesDivPlaceholder.classList.add("PassengerTypesDivPlaceholder");
 
         document.getElementById("PassengerTypesDivPlaceholder" + index).appendChild(vPassengerTypesDivText);
         vPassengerTypesDivText.setAttribute("id", "PassengerTypesDivText" + index);
+        vPassengerTypesDivText.classList.add("PassengerTypesDivText");
         document.getElementById("PassengerTypesDivText" + index).textContent = element;
 
         document.getElementById("PassengerTypesDivPlaceholder" + index).appendChild(vPassengerTypesDivButtons);
         vPassengerTypesDivButtons.setAttribute("id", "PassengerTypesDivButtons" + index);
+        vPassengerTypesDivButtons.classList.add("PassengerTypesDivButtons");
 
         document.getElementById("PassengerTypesDivButtons" + index).appendChild(vPassengerTypesDivButtonsMinus);
         vPassengerTypesDivButtonsMinus.setAttribute("id", "PassengerTypesDivButtonsMinus" + index);
         vPassengerTypesDivButtonsMinus.classList.add("PassengerTypesButtons");
+        vPassengerTypesDivButtonsMinus.classList.add("PassengerTypesButtonsMinus");
         document.getElementById("PassengerTypesDivButtonsMinus" + index).textContent = "-";
         document.getElementById("PassengerTypesDivButtonsMinus" + index).addEventListener("click", function () {
             if (document.getElementById("PassengerTypesDivButtonsInput" + index).value > 0) {
@@ -68,31 +69,30 @@ function passengersCreateItems() {
 
         document.getElementById("PassengerTypesDivButtons" + index).appendChild(vPassengerTypesDivButtonsInput);
         vPassengerTypesDivButtonsInput.setAttribute("id", "PassengerTypesDivButtonsInput" + index);
+        vPassengerTypesDivButtonsInput.classList.add("PassengerTypesDivButtonsInput");
         vPassengerTypesDivButtonsInput.setAttribute("maxlength", 1);
         vPassengerTypesDivButtonsInput.setAttribute("autocomplete", "off");
-
         vPassengerTypesDivButtonsInput.classList.add("PassengerTypesInputClass");
 
         document.getElementById("PassengerTypesDivButtonsInput" + index).value = objUserSelections.passengers[element];
         document.getElementById("PassengerTypesDivButtonsInput" + index).addEventListener("input", function () {
             this.value = this.value.replace(/[^0-9]/g, '');
             objUserSelections.passengers[element] = this.value
-
+            countPassengers()
         })
 
         document.getElementById("PassengerTypesDivButtons" + index).appendChild(vPassengerTypesDivButtonsPlus);
         vPassengerTypesDivButtonsPlus.setAttribute("id", "PassengerTypesDivButtonsPlus" + index);
         vPassengerTypesDivButtonsPlus.classList.add("PassengerTypesButtons");
+        vPassengerTypesDivButtonsPlus.classList.add("PassengerTypesDivButtonsPlus");
         document.getElementById("PassengerTypesDivButtonsPlus" + index).textContent = "+";
         document.getElementById("PassengerTypesDivButtonsPlus" + index).addEventListener("click", function () {
-            if (document.getElementById("PassengerTypesDivButtonsInput" + index).value >= 9) {
-                // nie ma jak potem tego usunac  document.getElementById("PassengerTypesDivPlaceholder" + index).innerHTML += "You cannot select more than 9 passengers";
-            } else {
+            if (document.getElementById("PassengerTypesDivButtonsInput" + index).value >= 9) {} else {
                 document.getElementById("PassengerTypesDivButtonsInput" + index).value++;
                 objUserSelections.passengers[element] = parseInt(document.getElementById("PassengerTypesDivButtonsInput" + index).value)
+                countPassengers()
             }
         })
-
     })
 
     vPassengerTypesContainer.appendChild(vPassengerTypesDivComplete);
@@ -107,8 +107,6 @@ function passengersCreateItems() {
     })
 };
 
-
-
 export function deletePassengerTypesContainer() {
     vPassengerTypesContainer.classList.remove("passengerTypesContainerDisplay");
     vPassengerTypesContainer.classList.add("passengerTypesContainerHide");
@@ -118,7 +116,6 @@ export function deletePassengerTypesContainer() {
 function createPassangerSelectionInfo() {
     let vPassangerSelectionInfo = "";
     arrPassengersTypes.forEach(function (element, index) {
-
         if (objUserSelections.passengers[element] > 0) {
             vPassangerSelectionInfo = vPassangerSelectionInfo + element + ': ' + objUserSelections.passengers[element] + ' ';
         }
@@ -129,11 +126,14 @@ function createPassangerSelectionInfo() {
 function countPassengers() {
     let vPassNum = 0;
     arrPassengersTypes.forEach(function (element, index) {
-        vPassNum = objUserSelections.passengers[element] + vPassNum;
+        vPassNum = parseInt(objUserSelections.passengers[element]) + parseInt(vPassNum);
+        //  console.log(vPassNum);
+        //  console.log(objUserSelections.passengers[element]);
     });
     objUserSelections.passengersNumber = vPassNum;
+    // console.log(objUserSelections.passengersNumber);
+    //  console.log(objUserSelections);
 }
-
 
 export default {
     passengersCreateStrucutre,

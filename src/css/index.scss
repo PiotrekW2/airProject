@@ -1,104 +1,384 @@
+@import url('https://fonts.googleapis.com/css?family=Antic&display=swap');
+
+$iconColor: dodgerblue;
+$backgroudcolour: whitesmoke;
+
 body {
     margin: 0;
     padding: 0;
-}
+    box-sizing: border-box;
+    font-family: 'Antic', sans-serif;
 
-.findFly {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    background-color: grey;
+    .nav1 {
+        background-color: rgb(4, 4, 82);
+        height: 40px;
+        margin: 20px 0 40px 0;
+        padding-left: 15px;
+        padding-top: 8px;
+        padding-bottom: 3px;
+        box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
 
-    #containerTakeOff,
-    #containerLanding {
-        background-color: whitesmoke;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        max-width: 200px;
-        min-width: 100px;
+        .nav-logo {
+            display: flex;
 
-        label {
-            width: 25%;
-            min-width: 70px;
-        }
+            img {
+                height: 35px;
+            }
 
-        .takeOffDate,
-        .landingDate {
-            width: 50%;
-            min-width: 70px;
-            border: none;
-            border-bottom: 2px solid dodgerblue;
-            background-color: inherit;
-            cursor: pointer;
-            text-align: right;
-        }
-
-        i {
-            width: 10%;
-            min-width: 20px;
-            text-align: center;
-            border-bottom: 2px solid dodgerblue;
-        }
-
-        .landingDate:disabled {
-            background: #ccc;
+            p {
+                margin: 0;
+                padding: 0;
+                color: $backgroudcolour;
+                font-weight: bold;
+                padding-left: 10px;
+                font-size: 1.5rem;
+            }
         }
     }
 
+    .findFly {
+        justify-content: center;
+        align-items: center;
+        /* background-color: $backgroudcolour;*/
+        padding: 1% 15% 1% 15%;
 
-    #iconAirportSwitch {
-        display: flex;
-        flex-direction: column;
-        flex-wrap: wrap;
-        width: 10%;
-
-
-        #imgIconAirportSwitch {
-
-            margin: auto;
-            cursor: pointer;
-        }
-    }
-
-    div {
-        padding: 10px;
-        width: 35%;
-        text-align: left;
-
-        input {
+        #containerFirstLevel {
+            display: grid;
             width: 100%;
-        }
 
-        #TableImputFrom,
-        #TableImputTo {
-            position: absolute;
-            width: inherit;
-            font-size: 70%;
-            background-color: whitesmoke;
-            margin: 5px;
-            border-collapse: collapse;
+            margin: 0;
+            padding: 0px;
+            /*background-color: $backgroudcolour;*/
 
-            td {
-                border: 1px solid black;
+            #directoryFrom,
+            #directoryTo {
+                position: relative;
+                width: 100%;
+                padding: 10px;
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+
+                label {
+                    grid-row: 1;
+                }
+
+                .directoryInput-from,
+                .directoryInput-to {
+
+                    grid-row: 2/ span 2;
+                    display: flex;
+                    width: 100%;
+                    margin-bottom: 5px;
+                    box-shadow: none;
+
+                    input {
+                        width: 100%;
+                        padding: 5px;
+                        outline: none;
+                        cursor: pointer;
+                        /*border: 1px solid black;*/
+
+                        box-shadow: none;
+                    }
+
+                    i {
+                        background: $iconColor;
+                        color: white;
+                        min-width: 30px;
+                        text-align: center;
+                        display: grid;
+                    }
+
+                    i.fa {
+                        padding: 1px;
+                        text-align: center;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
+                .directoryInput-to {
+                    i.fa {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                .directoryTableContainerHidden {
+                    display: none;
+                }
+
+                /*.directoryTableHidden {
+                    display: none;
+                }*/
+
+                .directoryTableContainer {
+                    position: absolute;
+                    width: 100%;
+                    max-height: 150px;
+                    transform: translate(10px, 60px);
+                    z-index: 10;
+                    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+                    padding: 0;
+                    overflow-y: auto;
+                    scrollbar-arrow-color: lightgreen;
+                    scrollbar-track-color: lightslategray;
+
+                    .directoryTable {
+
+                        margin: 0;
+                        border-collapse: collapse;
+                        font-size: 75%;
+                        color: darkslategrey;
+                        background-color: $backgroudcolour;
+                        width: 100%;
+
+                        td {
+                            border: none;
+                            padding-bottom: 5px;
+                            padding-top: 5px;
+                        }
+
+                        tr:hover {
+                            background-color: $iconColor;
+                            color: $backgroudcolour;
+                            cursor: pointer;
+                        }
+
+                        td:nth-child(1) {
+                            padding-left: 5px;
+                            text-align: left;
+                        }
+
+                        td:nth-child(2) {
+                            padding: 1px;
+                            text-align: center;
+                        }
+
+                        td:nth-child(3) {
+                            padding-right: 5px;
+                            text-align: right;
+                        }
+                    }
+                }
             }
 
-            tr:hover {
-                background-color: gray;
+            /* Works on Chrome/Edge/Safari */
+            ::-webkit-scrollbar {
+                width: 8px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: white;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background-color: $backgroudcolour;
+                ;
+                border: 1px solid white;
+            }
+
+            #iconAirportSwitch {
+                padding: 0;
+
+                #imgIconAirportSwitch {
+                    cursor: pointer;
+                }
+            }
+
+            #goFurther {
+                padding: 12px;
+                border-radius: 5px;
+                cursor: pointer;
+                border: 0px;
+                background-image: linear-gradient(to top, rgb(58, 206, 58), rgb(78, 211, 78));
+                color: white;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+            }
+
+            #goFurther:hover {
+                -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+                -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+                box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
             }
         }
 
+        .containerSecondLevelHide {
+            display: none;
+        }
+
+        .containerSecondLevelDisplay {
+            position: relative;
+            animation-name: slideDown;
+            animation-duration: 300ms;
+            animation-timing-function: linear;
+            background-color: inherit;
+            display: grid;
+            width: 100%;
+            margin: 0;
+            padding: 0px;
+
+            #containerTakeOff,
+            #containerLanding {
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                width: 100%;
+
+                label {
+                    grid-row: 1;
+                    width: 75%;
+                    min-width: 70px;
+                }
+
+                #dateInputDiv {
+                    grid-row: 2/ span 2;
+
+                    display: flex;
+                    width: 100%;
+                    margin-bottom: 5px;
+
+                    input {
+                        width: 100%;
+                        padding: 5px;
+                        outline: none;
+                        cursor: pointer;
+                        border: 1px solid rgb(200, 200, 200);
+                    }
+
+                    i {
+                        padding: 10px;
+                        background: $iconColor;
+                        color: white;
+                        min-width: 30px;
+                        text-align: center;
+
+                    }
+                }
+
+                .landingDate:disabled {
+                    background: #ccc;
+                }
+            }
+
+            #passengerTypes,
+            #classTypes {
+                position: relative;
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr;
+                width: 100%;
+
+                label {
+                    grid-row: 1;
+                    padding-bottom: 5px;
+                }
+
+                #passTypeDiv,
+                #classTypeDiv {
+                    grid-row: 2/span 2;
+                    display: flex;
+                    width: 100%;
+                    margin-bottom: 5px;
+
+                    button {
+                        width: 100%;
+                        padding: 5px;
+                        outline: none;
+                        cursor: pointer;
+                        border: 1px solid rgb(200, 200, 200);
+                        background-color: $backgroudcolour;
+                    }
+
+                    i {
+                        background: $iconColor;
+                        color: white;
+                        min-width: 30px;
+                        text-align: center;
+                        display: grid;
+                    }
+
+                    i.fa {
+                        padding: 1px;
+                        text-align: center;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                }
+
+                #classTypeDiv:hover {
+                    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+                }
+
+                #passTypeDiv:hover {
+                    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+                }
+            }
+
+            #result {
+                padding: 12px;
+                border-radius: 5px;
+                text-align: center;
+                cursor: pointer;
+                border: 0px;
+                background-image: linear-gradient(to top, rgb(58, 206, 58), rgb(78, 211, 78));
+                color: white;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 1.5px;
+            }
+
+            #result:hover {
+                -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+                -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+                box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            }
+        }
     }
 
+    .error-PopupContainer {
+        position: absolute;
+        min-width: 240px;
+        min-height: 100px;
+        display: grid;
+        grid-template-columns: 5% 90% 5%;
+        grid-template-rows: 65% 35%;
+        justify-items: center;
+        z-index: 10;
+        left: 50%;
+        top: 40%;
+        transform: translate(-50%, -50%);
+        background-color: $backgroudcolour;
+        box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+        border: darkgray solid 1px;
+        text-align: center;
+        padding: 10px 0;
+
+        .error-PopupMessage {
+            grid-row: 1;
+            grid-column: 2;
+        }
+
+        .error-PopupButton {
+            grid-row: 2;
+            grid-column: 2;
+            background-color: lightgreen;
+            color: white;
+            align-self: center;
+            padding: 5px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .error-PopupButton:hover {
+            -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+        }
+    }
 }
 
-#result {
-    left: 20%;
-    top: 10%;
-    background-color: yellow;
-    width: 5%;
+.error-PopupContainerHidden {
+    display: none;
 }
 
 .classTypesContainerHide {
@@ -106,100 +386,553 @@ body {
 }
 
 .classTypesContainerDisplay {
-    display: grid;
-    min-width: 200px;
-    min-height: 200px;
-    background-color: grey;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    display: grid;
+    grid-template-rows: fr1 fr1 fr1;
+    width: 100%;
+    background-color: $backgroudcolour;
+    position: absolute;
+    transform: translate(0, 44%);
+    z-index: 10;
+    margin: 5px 0 0 0;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
 
-.classTypeButton {
-    background-color: white;
-}
+    .ClassTypesDivButtons {
+        display: flex;
+        justify-content: center;
+        padding: 15px;
+        margin: 0;
 
-.classTypeButtonSelected {
-    background-color: blue;
+        .classTypeButton {
+            color: darkslategrey;
+            list-style-type: none;
+        }
+    }
+
+    .classTypeButtonSelected {
+        background-color: $iconColor;
+
+        .classTypeButton {
+            color: $backgroudcolour
+        }
+    }
+
+    .classTypeButtonProposition {
+        background-color: rgba(30, 144, 255, 0.2);
+
+        .classTypeButton {
+            color: white
+        }
+    }
 }
 
 .passengerTypesContainerHide {
     display: none;
 }
 
-.classTypeButtonProposition {
-    background-color: yellow;
-}
-
 .passengerTypesContainerDisplay {
     display: grid;
-    min-width: 200px;
-    min-height: 200px;
-    background-color: grey;
+    width: 100%;
+    background-color: $backgroudcolour;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
+    transform: translate(0, 42%);
+    z-index: 10;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
 
+    .PassengerTypesDivPlaceholder {
+        display: grid;
+        grid-template-columns: 40% 20% 40%;
+        padding: 10px;
+        border-bottom: 1px solid lightblue;
+
+        .PassengerTypesDivText {
+            grid-column: 1;
+            text-align: center;
+            justify-content: center;
+        }
+
+        .PassengerTypesDivButtons {
+            grid-column: 3;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+
+            .PassengerTypesDivButtonsMinus {
+                grid-column: 1;
+            }
+
+            .PassengerTypesInputClass {
+                grid-column: 2;
+                width: 100%;
+                text-align: center;
+                padding: 0;
+                margin-left: 2px;
+                margin-right: 2px;
+                box-shadow: none;
+                border-bottom: 1px solid lightblue;
+                border-color: lightblue;
+                border-width: 0;
+                -webkit-appearance: none;
+                background-color: white;
+            }
+
+            .PassengerTypesDivButtonsPlus {
+                grid-column: 3;
+            }
+        }
+    }
+
+    #PassengerTypesDivComplete {
+        display: grid;
+        justify-content: right;
+        border-color: lightcoral;
+        padding: 10px;
+        padding-right: 20px;
+
+        #PassengerTypesDivButtonsConfirm {
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 0px;
+            background-image: linear-gradient(to top, rgb(58, 206, 58), rgb(78, 211, 78));
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        #PassengerTypesDivButtonsConfirm:hover {
+            -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+        }
+    }
+}
 
 .calendarContainerHide {
     display: none;
 }
 
-
 .calendarContainerDisplay {
     display: grid;
-    min-width: 200px;
-    min-height: 200px;
+    min-width: 150px;
+    max-width: 800px;
     background-color: grey;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    #closeCalendar {
-        cursor: pointer;
+    .calendarHeadliner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        padding: 10px;
+        margin: 0;
+        background-color: $iconColor;
+
+        #closeCalendar {
+            grid-column: 2;
+            cursor: pointer;
+            justify-self: end;
+            margin: 0;
+            color: $backgroudcolour;
+        }
+
+        p {
+            grid-column: 1;
+            margin: 0;
+            color: $backgroudcolour;
+        }
     }
 
     #CalendarMainDiv {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
-        background-color: whitesmoke;
+        background-color: $backgroudcolour;
         min-height: 230px;
+        box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
     }
 
     .MonthHeader {
-        margin: 5px;
-        padding: 15px;
+        display: grid;
+        grid-template-columns: 10% 30% 20% 30% 10%;
+        grid-template-rows: 1fr;
+        margin: 0;
+        padding: 10px;
 
-        .fa {
-            padding-left: 10px;
-            padding-right: 10px;
+        .fa.fa-chevron-left {
+            grid-column: 1;
             cursor: pointer;
+            margin: 0;
+            padding: 0;
+        }
+
+        #CalendarMonthName0 {
+            grid-column: 2/ span 2;
+            margin: 0;
+            padding: 0;
+        }
+
+        #CalendarMonthName1 {
+            grid-column: 3 / span 2;
+            grid-row: 1;
+            margin: 0;
+            padding: 0;
+            justify-self: end;
+        }
+
+        .fa.fa-chevron-right {
+            grid-column: 5;
+            grid-row: 1;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            justify-self: end;
         }
     }
 
-    .cellCalendar:hover {
-        background-color: lightblue;
+    .CalendarDivClass {
+        margin: 0;
+        padding: 10px;
     }
 
-    .cellCalendar {
-        border: 1px solid black;
+    .CalendarTable {
+        th {
+            width: 35px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .classWeekend {
+            background-color: lightsalmon;
+            font-weight: normal;
+            color: rgb(30, 30, 30);
+            border: 1px solid grey;
+        }
+
+        .classAllDates {
+            border: 1px solid lightgrey;
+            color: grey;
+            font-weight: normal;
+        }
+
+        .classCellHeader {
+            color: rgb(30, 30, 30);
+            border: none;
+            font-weight: bold;
+            height: 35px;
+        }
+
+        .cellCalendar {
+            font-weight: normal;
+            color: rgb(30, 30, 30);
+            border: 1px solid grey;
+        }
+
+        .cellCalendar:hover {
+            background-color: lightblue;
+        }
+
+        .cellCalendarSelected {
+            background-color: $iconColor;
+        }
+
+        .cellCalendarInitialSelected {
+            background-color: $iconColor;
+        }
+
+        .cellCalendarBetweenDates {
+            background-color: lightblue;
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .findFly {
+        padding: 1% 15% 1% 15%;
+
+        #containerFirstLevel {
+            width: 100%;
+            display: grid;
+            margin: 0;
+            /*padding: 0 10px 0 10px;*/
+            grid-template-columns: 1% 5fr 1fr 5fr 1fr 1%;
+            column-gap: 20px;
+            justify-items: center;
+            align-items: center;
+            border: 1px solid lightgray;
+            /*box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.12);*/
+            background-color: $backgroudcolour;
+            box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+
+            #directoryFrom {
+                grid-column: 2;
+            }
+
+            #directoryTo {
+                grid-column: 4;
+            }
+
+            input {
+                border: 1px solid white;
+            }
+
+            #imgIconAirportSwitch {
+                margin: auto;
+                grid-column: 3;
+            }
+
+            #goFurther {
+                grid-column: 5;
+            }
+        }
+
+        .containerSecondLevelDisplay {
+            display: grid;
+            /*padding: 0 10px 0 10px;*/
+            grid-template-columns: 3% 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 3%;
+            grid-template-rows: 1fr 1fr;
+            column-gap: 10px;
+            justify-items: center;
+            align-items: center;
+            box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.12);
+
+            #containerTakeOff {
+                grid-row: 1;
+                grid-column: 2/span 4;
+            }
+
+            #containerLanding {
+                grid-row: 1;
+                grid-column: 6/ span 4;
+            }
+
+            #whatWayContainer {
+                grid-row: 1;
+                grid-column: 10/ span 4;
+                width: 100%;
+                display: grid;
+                grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+                .whatWay-div-box1 {
+                    grid-row: 4/ span 3;
+                    margin-bottom: 5px;
+                }
+
+                .whatWay-div-box2 {
+                    grid-row: 7/ span 3;
+                }
+
+                .whatWay-div-box1,
+                .whatWay-div-box2 {
+                    display: grid;
+                    grid-template-rows: 1fr;
+                    grid-template-columns: 8% 12% 8% 72%;
+
+                    input {
+                        grid-row: 1;
+                        grid-column: 2;
+                        margin: 0;
+                        height: 18px;
+                        width: 18px;
+                    }
+
+                    label {
+                        grid-row: 1;
+                        grid-column: 4;
+                        align-items: center;
+                    }
+                }
+            }
+
+            #passengerTypes {
+                grid-row: 2;
+                grid-column: 2/ span 5;
+            }
+
+            #classTypes {
+                grid-row: 2;
+                grid-column: 7/ span 5;
+            }
+
+            #result {
+                grid-row: 2;
+                grid-column: 12/ span 2;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 501px) and (max-width: 767px) {
+    .findFly {
+        padding: 1% 25% 1% 25%;
+
+        #containerFirstLevel {
+            border: 1px solid lightgray;
+            /*box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 0.12);*/
+            background-color: $backgroudcolour;
+            margin: 0;
+            grid-template-columns: 5% 1fr 5%;
+            column-gap: 20px;
+            justify-items: center;
+            align-items: center;
+            justify-content: space-evenly;
+
+            #directoryFrom {
+                grid-column: 2;
+            }
+
+            #directoryTo {
+                grid-column: 2;
+            }
+
+            input {
+                border: 1px solid white;
+            }
+
+            #iconAirportSwitch {
+                grid-column: 2;
+
+                #imgIconAirportSwitch {
+                    margin: 5px 0 0 0;
+                    transform: rotate(90deg);
+                }
+            }
+
+            #goFurther {
+                grid-column: 2;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 500px) {
+    .findFly {
+        padding: 1% 5% 1% 5%;
+
+        #containerFirstLevel {
+            /*padding: 0 10px 10px 10px;*/
+            margin: 0;
+            grid-template-columns: 1fr;
+            background-color: white;
+            justify-items: center;
+            align-items: center;
+            justify-content: space-evenly;
+            border: none;
+            box-shadow: none;
+
+            #directoryFrom {
+                grid-column: 1;
+                padding: 0;
+            }
+
+            #directoryTo {
+                grid-column: 1;
+                padding: 0;
+            }
+
+            input {
+                border: 1px solid grey;
+            }
+
+            #iconAirportSwitch {
+                grid-column: 1;
+
+                #imgIconAirportSwitch {
+                    margin: 5px 0 0 0;
+                    transform: rotate(90deg);
+                }
+            }
+
+            #goFurther {
+                grid-column: 1;
+            }
+        }
+    }
+}
+
+
+@media screen and (max-width: 767px) {
+    .containerSecondLevelDisplay {
+        display: grid;
+        grid-template-columns: 100%;
+
+        #containerTakeOff {
+            grid-column: 1;
+        }
+
+        #containerLanding {
+            grid-column: 1;
+        }
+
+        #whatWayContainer {
+            grid-column: 1;
+            width: 100%;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+
+            .whatWay-div-box1 {
+                grid-row: 4/ span 3;
+                margin-bottom: 5px;
+            }
+
+            .whatWay-div-box2 {
+                grid-row: 7/ span 3;
+            }
+
+            .whatWay-div-box1,
+            .whatWay-div-box2 {
+                display: grid;
+                grid-template-rows: 1fr;
+                grid-template-columns: 8% 12% 8% 72%;
+
+                input {
+                    grid-row: 1;
+                    grid-column: 2;
+                    margin: 0;
+                    height: 18px;
+                    width: 18px;
+                }
+
+                label {
+                    grid-row: 1;
+                    grid-column: 4;
+                    align-items: center;
+                }
+            }
+        }
+
+        #passengerTypes {
+            grid-column: 1;
+        }
+
+        #classTypes {
+            grid-column: 1;
+        }
+
+        #result {
+            grid-column: 1;
+        }
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: scaleY(0);
+        /* zwijamy cały element */
+        -webkit-transform: scaleY(0);
+        transform-origin: 50% 0;
+        /* ustawiamy punkt zwijania względem środka górnej krawędzi */
+        -webkit-transform-origin: 50% 0;
     }
 
-    .cellCalendarSelected {
-        background-color: blue;
+    to {
+        transform: scaleY(1);
+        /* zwijamy cały element */
+        -webkit-transform: scaleY(1);
+        transform-origin: 50% 0;
+        /* ustawiamy punkt zwijania względem środka górnej krawędzi */
+        -webkit-transform-origin: 50% 0;
     }
-
-    .cellCalendarInitialSelected {
-        background-color: blue;
-    }
-
-    .cellCalendarBetweenDates {
-        background-color: lightgreen;
-    }
-
 }

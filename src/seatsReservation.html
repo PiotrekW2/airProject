@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fly out</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
@@ -12,20 +12,96 @@
 
     <header>
         <div id="backToMain"> <a href="index.html">back</a></div>
-        <div id="seatsResPlane">plane</div>
-        <div>asdas
+
     </header>
-    <div id="svgContainer">
+    <nav id="nav1" class="nav1">
+        <div class="nav-logo">
+            <img src="./img/logo_white.png" alt="ariplanelogo">
+            <p>FLY OUT</p>
+        </div>
+    </nav>
+    <div id="resGlobalContainer" class="res-globalContainer">
+        <div id="resMidContainer" class="res-midContainer">
+            <div class="res-descContainer">
+                <div id="res-descContainerFrom" class="res-descContainerFromHidden">
+                    <div class="res-infoHeader">Outbound flight details</div>
+                    <div id="res-from-infoHeader1" class="res-infoHeader1 res-rowHeader">From</div>
+                    <div id="res-from-info1" class="res-info1 res-info"></div>
+                    <div id="res-from-infoHeader2" class="res-infoHeader2 res-rowHeader">To</div>
+                    <div id="res-from-info2" class="res-info2 res-info"></div>
+                    <div id="res-from-infoHeader3" class="res-infoHeader3 res-rowHeader">Date</div>
+                    <div id="res-from-info3" class="res-info3 res-info"></div>
+                    <div id="res-from-infoHeader4" class="res-infoHeader4 res-rowHeader">Passengers</div>
+                    <div id="res-from-info4" class="res-info4 res-info"></div>
+                    <div id="res-from-infoHeader5" class="res-infoHeader5 res-rowHeader">Cabin class</div>
+                    <div id="res-from-info5" class="res-info5 res-info"></div>
+                    <div id="res-from-infoHeader6" class="res-infoHeader6 res-rowHeader">Seats</div>
+                    <div id="res-from-info6" class="res-info6 res-info"></div>
+                </div>
+                <div id="res-descContainerTo" class="res-descContainerToHidden">
+                    <div class="res-infoHeader">Inbound flight details</div>
+                    <div id="res-to-infoHeader1" class="res-infoHeader1 res-rowHeader">From</div>
+                    <div id="res-to-info1" class="res-info1 res-info"></div>
+                    <div id="res-to-infoHeader2" class="res-infoHeader2 res-rowHeader">To</div>
+                    <div id="res-to-info2" class="res-info2 res-info"></div>
+                    <div id="res-to-infoHeader3" class="res-infoHeader3 res-rowHeader">Date</div>
+                    <div id="res-to-info3" class="res-info3 res-info"></div>
+                    <div id="res-to-infoHeader4" class="res-infoHeader4 res-rowHeader">Passengers</div>
+                    <div id="res-to-info4" class="res-info4 res-info"></div>
+                    <div id="res-to-infoHeader5" class="res-infoHeader5 res-rowHeader">Cabin class</div>
+                    <div id="res-to-info5" class="res-info5 res-info"></div>
+                    <div id="res-to-infoHeader6" class="res-infoHeader6 res-rowHeader">Seats</div>
+                    <div id="res-to-info6" class="res-info6 res-info"></div>
+                </div>
+
+                <div id="resConfirmationButton" class="res-confirmButton">
+                    confirm
+                </div>
+            </div>
+
+            <div id="svgContainer">
 
 
-        <!-- <img src="./img/svg/A320.svg" alt="aaaaaa"> -->
+                <!-- <img src="./img/svg/A320.svg" alt="aaaaaa"> -->
 
-        <!-- <object id="planeSvg" data="A320.svg" type="image/svg+xml"></object> -->
+                <!-- <object id="planeSvg" data="A320.svg" type="image/svg+xml"></object> -->
 
 
 
+            </div>
+        </div>
     </div>
-    <div>asdasda</div>
+    <footer></footer>
+
+
+    <div id="loginWrapper" class="login-wrapper-hidden">
+        <div class="login-close">
+            <i id="loginClose" class="fa fa-close icon"></i>
+        </div>
+        <div id="loginHeader" class="loginHeader">
+            <h2>FLY OUT</h2>
+            <img src="./img/logo-black.png" alt="ariplanelogo">
+        </div>
+        <div id="logginSection" class="logginSection">
+            <label for="email" class="label-email">Email address</label>
+            <input type="email" id="email" class="input-email" placeholder="example@domain" autocomplete="on">
+            <label for="password" class="label-password">Password</label>
+            <input type="password" id="password" class="input-password">
+        </div>
+        <div id="logginSectionButtons" class="logginSectionButtons">
+            <button id="loginConfirm">login</button>
+            <button id="register">register</button>
+        </div>
+        <div class="login-tips">login: user1@fly.pl pass: 123</div>
+    </div>
+
+    <div id="logoutWrapper" class="logout-wrapper-hidden">
+        <p id="logoutInfo" class="logout-Info">Thank you! Your reservation has been registered. </p>
+        <p id="logoutCountdown" class="logout-Countdown">You will be logged out in: </p>
+    </div>
+
+    <div id="page-cover" class="page-cover-hidden"></div>
+
 
 
 </body>

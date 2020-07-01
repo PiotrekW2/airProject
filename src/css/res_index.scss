@@ -1,13 +1,221 @@
-body {
-    height: 580x;
+@import "login.scss";
+
+$resMainColor: rgb(4, 4, 82);
+
+.nav1 {
+
+    background-color: $resMainColor;
+    height: 40px;
+    margin: 20px 0 40px 0;
+    padding-left: 15px;
+    padding-top: 8px;
+    padding-bottom: 3px;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.22);
+
+    .nav-logo {
+        display: flex;
+
+        img {
+            height: 35px;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+            color: whitesmoke;
+            font-weight: bold;
+            padding-left: 10px;
+            font-size: 1.5rem;
+        }
+    }
+}
+
+.res-midContainer {
+    width: 100%;
+    display: grid;
+    justify-items: center;
+
+    .res-descContainer {
+        width: 100%;
+
+        display: grid;
+        grid-template-rows: 40% 40% 15% 5%;
+
+        .res-descContainerToHidden {
+            display: none;
+        }
+
+        .res-descContainerFromHidden {
+            display: none;
+        }
+
+        .res-descContainerFrom {
+            grid-row: 1;
+        }
+
+        .res-descContainerTo {
+            grid-row: 2;
+        }
+
+        .res-confirmButton {
+            grid-row: 3;
+            place-self: center;
+            padding: 10px 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            /*text-transform: uppercase;*/
+            border: 0px;
+            background-image: linear-gradient(to top, rgb(58, 206, 58), rgb(78, 211, 78));
+            color: white;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: capitalize;
+        }
+
+        .res-confirmButton:hover {
+            -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+            box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+        }
+
+        .res-descContainerFrom,
+        .res-descContainerTo {
+            width: 100%;
+            display: grid;
+            grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 8% 25% 55% 12%;
+            grid-template-areas:
+                "space header header space2"
+                "space infoHeader1 info1 space2"
+                "space infoHeader2 info2 space2"
+                "space infoHeader3 info3 space2"
+                "space infoHeader4 info4 space2"
+                "space infoHeader5 info5 space2"
+                "space infoHeader6 info6 space2"
+                "space footer footer footer";
+            align-items: stretch;
+
+            .res-infoHeader {
+                grid-area: header;
+                padding-bottom: 10px;
+                font-size: 1.3em;
+                color: $resMainColor;
+            }
+
+            .res-infoHeader1 {
+                grid-area: infoHeader1;
+            }
+
+            .res-info {
+                padding-left: 10px;
+                border-bottom: 1px dashed rgba(4, 4, 82, 0.5);
+                padding-top: 5px;
+                color: $resMainColor;
+            }
+
+            .res-rowHeader {
+                padding-top: 5px;
+                padding-left: 10px;
+                background-color: $resMainColor;
+                color: white;
+                font-weight: bold;
+            }
+
+            .res-info1 {
+                grid-area: info1;
+            }
+
+            .res-infoHeader2 {
+                grid-area: infoHeader2;
+            }
+
+            .res-info2 {
+                grid-area: info2;
+            }
+
+            .res-infoHeader3 {
+                grid-area: infoHeader3;
+            }
+
+            .res-info3 {
+                grid-area: info3;
+            }
+
+            .res-infoHeader4 {
+                grid-area: infoHeader4;
+            }
+
+            .res-info4 {
+                grid-area: info4;
+            }
+
+            .res-infoHeader5 {
+                grid-area: infoHeader5;
+            }
+
+            .res-info5 {
+                grid-area: info5;
+            }
+
+            .res-infoHeader6 {
+                grid-area: infoHeader6;
+            }
+
+            .res-info6 {
+                grid-area: info6;
+            }
+        }
+    }
+
+    #svgContainer {
+        display: grid;
+        grid-template-columns: 60% 40%;
+        height: 500px;
+
+        p {
+            grid-column: 1;
+            width: 350px;
+            justify-self: start;
+            overflow-y: auto;
+            scrollbar-width: 10px;
+            scrollbar-arrow-color: lightgreen;
+            scrollbar-track-color: lightslategray;
+
+            #svgPlane {
+                height: 1050px;
+                transform: scale(1.1, 1.1);
+
+                #plane {
+                    transform: matrix(0, 1.5, -1.5, 0, 350, 60);
+                }
+            }
+        }
+    }
+
+
+    /* Works on Chrome/Edge/Safari */
+    ::-webkit-scrollbar {
+        width: 15px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: white;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background-color: $resMainColor;
+        ;
+        border: 1px solid white;
+    }
 }
 
 .availableSeat {
-    fill: yellowgreen
+    fill: #7A942E
 }
 
 .occupiedSeat {
-    fill: red
+    fill: #DC3023
 }
 
 .unavailableSeats {
@@ -15,22 +223,45 @@ body {
 }
 
 .selecteSeat {
-    fill: blue;
+    fill: #F7CA18;
+    stroke: #F9690E;
 }
 
-#svg4485 {
-    background-color: red;
-    height: 1050px;
+.availableSeat {
+    -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+    -moz-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.24);
 }
 
-#svgContainer {
-    overflow-y: scroll;
-    height: 600px;
+
+@media screen and (min-width: 781px) {
+    .res-midContainer {
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 1fr;
+
+        .res-descContainer {
+            grid-column: 1;
+        }
+
+        #svgContainer {
+            grid-column: 2;
+        }
+    }
 }
 
-#plane {
-    height: 1050px;
-    width: auto;
-    transform: matrix(0, 1.5, -1.5, 0, 350, 10);
+@media screen and (max-width: 780px) {
+    .res-midContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
 
+        .res-descContainer {
+            grid-column: 1;
+            grid-row: 1;
+        }
+
+        #svgContainer {
+            grid-column: 1;
+            grid-row: 2;
+        }
+    }
 }

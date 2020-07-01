@@ -4,90 +4,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Fly out</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 
 <body id="body">
-    <header>header</header>
+    <header></header>
     <nav id="nav1" class="nav1">
-        nav1
+        <div class="nav-logo">
+            <img src="logo_white.png" alt="ariplanelogo">
+            <p>FLY OUT</p>
+        </div>
     </nav>
 
     <article id="article1" class="findFly">
-        <div>
-            <label for="inputFrom">From</label>
-            <input id="inputFrom" type="text">
-            <table id="TableImputFrom"></table>
-        </div>
-        <!-- <img src=<%=require("../img/005-arrow-1.png")%> alt="switch"> -->
 
-        <div id="iconAirportSwitch">
-            <img id="imgIconAirportSwitch" src="005-arrow-1.png" alt="">
+        <div id="containerFirstLevel">
+            <div id="directoryFrom">
+                <label for="inputFrom">From</label>
+                <div class="directoryInput-from">
+                    <i class="fa fa-plane" aria-hidden="true"></i>
+                    <input id="inputFrom" type="text" autocomplete="off">
+                </div>
+                <div id="directoryTableContainerFrom" class="directoryTableContainerHidden">
+                    <table id="TableImputFrom" class="directoryTable"></table>
+                </div>
+            </div>
 
-        </div>
-        <div>
-            <label for="inputTo">To</label>
-            <input id="inputTo" type="text">
-            <table id="TableImputTo"></table>
-        </div>
-        <div id="goFurther">GO
 
+            <div id="iconAirportSwitch">
+                <img id="imgIconAirportSwitch" src="005-arrow-1.png" alt="">
+
+            </div>
+            <div id="directoryTo">
+                <label for="inputTo">To</label>
+                <div class="directoryInput-to">
+                    <i class="fa fa-plane" aria-hidden="true"></i>
+                    <input id="inputTo" type="text" autocomplete="off">
+                </div>
+                <div id="directoryTableContainerTo" class="directoryTableContainerHidden">
+                    <table id="TableImputTo" class="directoryTable"></table>
+                </div>
+            </div>
+            <div id="goFurther">GO
+            </div>
         </div>
-        <div id="containerTakeOff">
-            <label for="takeOffDate"> start date</label>
-            <input id="takeOffDate" class="takeOffDate" type="text" readonly="readonly">
-            <i class="fa fa-calendar icon"></i>
-        </div>
-        <div id="containerLanding">
-            <label for="landingDate"> return date</label>
-            <input id="landingDate" class="landingDate" type="text" readonly="readonly">
-            <i class="fa fa-calendar icon"></i>
-        </div>
-        <div id="whatWayContainer">
-            <label for="whatWayCheckBox1">Round-trip flight</label>
-            <input id="whatWayCheckBox1" type="checkbox" checked>
-            <span class="checkmark"></span>
-            <label for="whatWayCheckBox2">One-way flight</label>
-            <input id="whatWayCheckBox2" type="checkbox">
-            <span class="checkmark"></span>
-        </div>
-        <div id="passengerTypes">
-            <label for="passengerTypesButId"> Number of passengers</label>
-            <button id="passengerTypesButId" class="passengerTypes-button">Test</button>
-            <i class="fa fa-angle-down"></i>
-        </div>
-        <div id="classTypes">
-            <label for="classTypesButId"> Class type</label>
-            <button id="classTypesButId" class="classTypes-button"></button>
-            <i class="fa fa-angle-down"></i>
-        </div>
-        <div id="result">
-            <!-- <a id="resHtml" href="seatsReservation.html">asdaa</a> -->
+        <div id="containerSecondLevel" class="containerSecondLevelHide">
+            <div id="containerTakeOff">
+
+                <label for="takeOffDate"> Start date</label>
+                <div id="dateInputDiv">
+                    <i class="fa fa-calendar icon"></i>
+                    <input id="takeOffDate" class="takeOffDate" type="text" readonly="readonly">
+                </div>
+            </div>
+            <div id="containerLanding">
+                <label for="landingDate"> Return date</label>
+                <div id="dateInputDiv">
+                    <i class="fa fa-calendar icon"></i>
+                    <input id="landingDate" class="landingDate" type="text" readonly="readonly">
+                </div>
+            </div>
+            <div id="whatWayContainer">
+                <div class="whatWay-div-box1">
+                    <input id="whatWayCheckBox1" type="checkbox" checked>
+                    <label for="whatWayCheckBox1">Round-trip flight</label>
+                </div>
+                <div class="whatWay-div-box2">
+                    <input id="whatWayCheckBox2" type="checkbox">
+                    <label for="whatWayCheckBox2">One-way flight</label>
+                </div>
+            </div>
+            <div id="passengerTypes">
+                <label for="passengerTypesButId"> Number of passengers</label>
+                <div id="passTypeDiv">
+                    <i class="fa fa-user-plus" aria-hidden="true"></i>
+                    <button id="passengerTypesButId" class="passengerTypes-button">Test</button>
+
+                </div>
+                <div id="passengerTypesContainer" class="passengerTypesContainerHide"></div>
+            </div>
+
+            <div id="classTypes">
+                <label for="classTypesButId"> Class type</label>
+                <div id="classTypeDiv">
+                    <i class="fa fa-ticket" aria-hidden="true"></i>
+                    <button id="classTypesButId" class="classTypes-button"></button>
+
+                </div>
+                <div id="classTypesContainer" class="classTypesContainerHide"> </div>
+            </div>
+            <div id="result">Confirm
+
+            </div>
         </div>
 
     </article>
 
-    <div id="calendarContainer" class="calendarContainerHide"> Select your date
-        <i id="closeCalendar" class="fa fa-close icon"></i>
-        <div id="calenarHeader">Month
+    <div id="calendarContainer" class="calendarContainerHide">
+        <div class="calendarHeadliner">
+            <p>Select your date</p>
+            <i id="closeCalendar" class="fa fa-close icon"></i>
+        </div>
+        <div id="calenarHeader">
         </div>
 
         <div id="tableCalendarPlaceHolder">
         </div>
     </div>
 
-
-    <div id="passengerTypesContainer" class="passengerTypesContainerHide"></div>
-    <div id="classTypesContainer" class="classTypesContainerHide"> </div>
-
     <footer></footer>
-
-
-    <!-- <script src=" bundle.js"></script> nie potrzebny bo bedzie dodany przez build -->
-    <!-- <script src="./index.js"></script> -->
-    <!-- <script src="./airports.js"></script> -->
-    <!-- <script src="./js/moment.js"></script> -->
-<script type="text/javascript" src="home.ee2d75354f5792eca5da.bundle.js"></script></body>
+    <div id="errorPopupContainer" class="error-PopupContainerHidden">
+        <div id="errorPopupMessage" class="error-PopupMessage"></div>
+        <div id="errorPopupButton" class="error-PopupButton">OK</div>
+    </div>
+<script type="text/javascript" src="home.487e3b33b94ada68a8e6.bundle.js"></script></body>
 
 </html>

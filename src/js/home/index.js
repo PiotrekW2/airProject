@@ -6,6 +6,10 @@ import {
 } from './airports2';
 
 import {
+    objConnections
+} from "./connections";
+
+import {
     calendar,
     calendarContent
 } from "./calendar";
@@ -18,17 +22,13 @@ import {
     classCreateStrucutre
 } from "./dropDownClass";
 
-
-// import {
-//     airports
-// } from './airports';
-
 let vInputFrom = document.getElementById("inputFrom");
 let vInputTo = document.getElementById("inputTo");
 let vTakeOffDate = document.getElementById("takeOffDate");
 let vLandingDate = document.getElementById("landingDate");
 let vSwitchButton = document.getElementById("imgIconAirportSwitch");
 let vGoButton = document.getElementById("goFurther");
+var vErrorButton = document.getElementById("errorPopupContainer");
 let vTodayDate = new Date();
 let vDateFormat = "YYYY-MM-DD";
 var moment = require('moment');
@@ -41,8 +41,11 @@ var vInitialClassId = 3;
 var vInitialPassengerNumber = "";
 var htmpPage = location.pathname.split("/").slice(-1);
 var objUserSelections = {
+    connectionExist: false,
     firstSelectedDate: vInitialTakeOffDate,
     firstSelectionDone: false,
+    returnSelectedDate: vInitialLandingDate,
+    way: 2,
     classType: vInitialClassType,
     classId: vInitialClassId,
     planeType: "",
@@ -52,12 +55,12 @@ var objUserSelections = {
         toAirport: "",
         fromIata: "",
         toIata: "",
-        iataConnection: "",
+        toIataConnection: "",
+        fromIataConnection: "",
     },
     passengers: {},
     passengersNumber: 0
 };
-
 
 objUserSelections.firstSelectedDate = vInitialTakeOffDate;
 objUserSelections.classType = vInitialClassType;
@@ -78,9 +81,6 @@ export {
     vClassButton,
     vPassengersButton
 }
-
-
-
 
 var arrTravelClasses = [{
     className: "Economy Class",
@@ -115,17 +115,7 @@ arrPassengersTypes.forEach(function (element, index) {
 });
 vPassengersButton.textContent = vInitialPassengerNumber;
 
-console.log(objUserSelections);
-
-//moment().format();
-
-
-//moment(vTodayDate).startOf("month").format();
-// console.log(vStartDate);
-// console.log(moment(vStartDate).daysInMonth());
-// console.log(moment(vStartDate).startOf("month").format("E"));
-
-
+//console.log(objUserSelections);
 
 //=========== add event for passenders number selection
 vPassengersButton.addEventListener("click", function () {
@@ -137,14 +127,13 @@ vClassButton.addEventListener("click", function () {
     classCreateStrucutre()
 }, false);
 
-
 //===========add initial take off date as a today +1
 vTakeOffDate.setAttribute("value", vInitialTakeOffDate);
 vLandingDate.setAttribute("value", vInitialLandingDate);
 
 //===========add events for both inputs
 vInputFrom.addEventListener("input", function () {
-    console.log(airports);
+    //    console.log(airports);
     checkInput("From")
 
 }, false);
@@ -157,7 +146,35 @@ vInputTo.addEventListener("input", function () {
 vGoButton.addEventListener("click", function () {
     objUserSelections.connections.fromAirport = vInputFrom.value;
     objUserSelections.connections.toAirport = vInputTo.value;
-    console.log(objUserSelections);
+    assignIata();
+    checkAirports();
+    if (objUserSelections.connectionExist) {
+        if (document.getElementById("containerSecondLevel").className == "containerSecondLevelHide") {
+
+            document.getElementById("containerSecondLevel").classList.remove("containerSecondLevelHide");
+            document.getElementById("containerSecondLevel").classList.add("containerSecondLevelDisplay");
+        } else {
+            document.getElementById("containerSecondLevel").classList.remove("containerSecondLevelDisplay");
+            document.getElementById("containerSecondLevel").classList.add("containerSecondLevelHide");
+        }
+    } else {
+        errorWrongConnection()
+    }
+    //   console.log(objUserSelections);
+})
+
+function errorWrongConnection() {
+    vErrorButton.classList.remove("error-PopupContainerHidden");
+    vErrorButton.classList.add("error-PopupContainer");
+    document.getElementById("errorPopupMessage").textContent =
+        "sorry, connection: " + objUserSelections.connections.fromAirport + " - " + objUserSelections.connections.toAirport + " is not available."
+    //    console.log(objUserSelections);
+}
+
+vErrorButton.addEventListener("click", function () {
+    vErrorButton.classList.remove("error-PopupContainer");
+    vErrorButton.classList.add("error-PopupContainerHidden");
+    document.getElementById("errorPopupMessage").textContent = "";
 })
 
 //==========add event to update obejct with selection when user type airport name
@@ -175,7 +192,6 @@ vSwitchButton.addEventListener("click", switchAirpots);
 
 
 //==========add event for date input field
-//let vStartDate = moment(document.getElementById("takeOffDate").value).startOf("month");
 vTakeOffDate.addEventListener("click", function () {
     objUserSelections.firstSelectionDone = false;
     //calendar(vStartDate)
@@ -192,43 +208,10 @@ vTakeOffDate.addEventListener("click", function () {
     });
 
     document.getElementById("PrevMonthIcon").addEventListener("click", function () {
-
-
         let vDir = -1;
         createCalendar(vDir);
     });
 })
-
-
-// let vStartDate1 = moment(vTodayDate).startOf("month");
-// document.getElementById("nextMth").addEventListener("click", function () {
-//     //    count += 1;
-//     let vStartDate1 = moment(vStartDate1).add(1, "months").startOf("month").format(vDateFormat);
-//     //   console.log(count);
-//     document.getElementById("CalendarTable").remove();
-//     calendar(vStartDate1)
-// })
-
-// document.getElementById("prevMth").addEventListener("click", function () {
-//     //    count += 1;
-//     let vStartDate1 = moment(vStartDate1).add(-1, "months").startOf("month").format(vDateFormat);
-//     //   console.log(count);
-//     document.getElementById("CalendarTable").remove();
-//     calendar(vStartDate1)
-// })
-
-
-
-// document.getElementsByTagName(i).onclick = function () {
-//     document.getElementById("CalendarMainDiv").remove();
-//     let vDir = -1;
-//     test(vDir);
-// };
-
-
-
-
-
 
 var vCounter = 0;
 var vCounter2 = 0;
@@ -239,103 +222,88 @@ function createCalendar(vDir) {
         vCounter = 0
         let vStartDate = moment(document.getElementById("takeOffDate").value).add(vCounter, "months").startOf("month").format(vDateFormat);
         calendar(vStartDate);
-        //       console.log("bbbb");
-
     } else {
         vCounter = vCounter + vDir;
         vCounter2 += 1;
-        console.log("vCounter2 06:" + vCounter2);
+        //       console.log("vCounter2 06:" + vCounter2);
 
         let vStartDate = moment(document.getElementById("takeOffDate").value).add(vCounter, "months").startOf("month").format(vDateFormat);
         numberOfCalendarSelections();
-        // if(vCalendarSelections == 1){
-        //     vClikCounter =
-        // }
-
         document.getElementById("CalendarTable0").remove();
         document.getElementById("CalendarTable1").remove();
-
-
         calendarContent(vStartDate, vCalendarSelections, vCounter2);
-
     }
-
-
 }
-
-
-
 
 // ==== round-trip, one way checkboxes
 document.getElementById("whatWayCheckBox1").addEventListener("click", function () {
     document.getElementById("whatWayCheckBox2").checked = false;
     document.getElementById("whatWayCheckBox1").checked = true;
     document.getElementById("landingDate").disabled = false;
-    //    document.getElementById("takeOffDate").disabled = false;
-    //   console.log(document.getElementById("whatWayCheckBox1").checked)
-    //   console.log(document.getElementById("whatWayCheckBox2").checked)
+    objUserSelections.way = 2;
 })
 
 document.getElementById("whatWayCheckBox2").addEventListener("click", function () {
     document.getElementById("whatWayCheckBox1").checked = false;
     document.getElementById("whatWayCheckBox2").checked = true;
     document.getElementById("landingDate").disabled = true;
-
-    //    document.getElementById("takeOffDate").disabled = true;
-    //   console.log(document.getElementById("whatWayCheckBox1").checked)
-    //   console.log(document.getElementById("whatWayCheckBox2").checked)
+    objUserSelections.way = 1;
 })
 
 var vCalendarSelections = 0;
 
 function numberOfCalendarSelections() {
-
-    // if (document.querySelectorAll("#CalendarTable0 .cellCalendarSelected").length +
-    //     document.querySelectorAll("#CalendarTable1 .cellCalendarSelected").length >= 1) {
-    //     vCalendarSelections = 1;
-    // }
-    // vCalendarSelections = document.querySelectorAll("#CalendarTable0 .cellCalendarSelected").length +
-    //    document.querySelectorAll("#CalendarTable1 .cellCalendarSelected").length;
-    console.log(objUserSelections);
+    //   console.log(objUserSelections);
     if (objUserSelections.firstSelectionDone) {
         vCalendarSelections = 1;
     } else {
         vCalendarSelections = 0;
     }
-
-    console.log("vCalendarSelections" + vCalendarSelections)
+    //   console.log("vCalendarSelections" + vCalendarSelections)
     return vCalendarSelections
-
-
 }
 
 document.getElementById("result").addEventListener("click", function () {
     assignIata();
+    checkAirports()
     //console.log(objUserSelections);
-    localStorage.setItem('userSelection', JSON.stringify(objUserSelections));
-    window.document.location = './../seatsReservation.html'
-    //console.log(localStorage.getItem('userSelection'));
+    if (objUserSelections.connectionExist) {
+        localStorage.setItem('userSelection', JSON.stringify(objUserSelections));
+        window.document.location = './../seatsReservation.html'
+        //console.log(localStorage.getItem('userSelection'));
+    } else {
+        errorWrongConnection();
+    }
 });
 
 function assignIata() {
+    objUserSelections.connections.fromIata = "";
+    objUserSelections.connections.toIata = "";
     airports.forEach(function (element, index) {
         if (airports[index].name == objUserSelections.connections.fromAirport) {
-            objUserSelections.connections.fromIata = airports[index].iata
-        } else
-
-        if (airports[index].name == objUserSelections.connections.toAirport) {
-            objUserSelections.connections.toIata = airports[index].iata
+            objUserSelections.connections.fromIata = airports[index].iata;
         }
-
     })
-    objUserSelections.connections.iataConnection = objUserSelections.connections.fromIata + "_" + objUserSelections.connections.toIata
-
+    airports.forEach(function (element, index) {
+        if (airports[index].name == objUserSelections.connections.toAirport) {
+            objUserSelections.connections.toIata = airports[index].iata;
+        }
+    })
+    objUserSelections.connections.toIataConnection = objUserSelections.connections.fromIata + "_" + objUserSelections.connections.toIata
+    objUserSelections.connections.fromIataConnection = objUserSelections.connections.toIata + "_" + objUserSelections.connections.fromIata
 }
 
-function countPassengers() {
-    let vPassNum = 0;
-    arrPassengersTypes.forEach(function (element, index) {
-        vPassNum = objUserSelections.passengers[element] + vPassNum;
-    });
-    objUserSelections.passengersNumber = vPassNum;
+function checkAirports() {
+    let vConnectionsNumber = objConnections.connections.length;
+    objUserSelections.connectionExist = false;
+    for (let i = 0; i < vConnectionsNumber; i++) {
+        //        console.log(i);
+        let vConnectionIataName = objConnections.connections[i].iataNames;
+        //       console.log(vConnectionIataName);
+        //       console.log(objUserSelections.connections.toIataConnection)
+        if (vConnectionIataName == objUserSelections.connections.toIataConnection) {
+            objUserSelections.connectionExist = true;
+            break
+        };
+    }
 }

@@ -22,14 +22,11 @@ export function classCreateStrucutre() {
     } else {
         deleteClassTypesContainer();
     }
-
 }
 
 function classCreateItems() {
-
-
     arrTravelClasses.forEach(function (element, index) {
-        console.log(element);
+        //  console.log(element);
         let vClassTypesDivButtons = document.createElement("ul");
         let vClassTypesButtons = document.createElement("li");
 
@@ -43,31 +40,25 @@ function classCreateItems() {
         vClassButtonId.textContent = element.className;
         vClassButtonId.classList.add("classTypeButton");
 
-        vClassButtonId.addEventListener("click", function () {
+        vClassTypesDivButtons.addEventListener("click", function () {
             objUserSelections.classType = element.className
             objUserSelections.classId = element.classId
-            console.log(objUserSelections);
+            //   console.log(objUserSelections);
             vClassButton.textContent = objUserSelections.classType;
             deleteClassTypesContainer();
         })
         if (vClassButton.textContent == vClassButtonId.textContent) {
-            vClassButtonId.classList.add("classTypeButtonSelected")
+            vClassTypesDivButtons.classList.add("classTypeButtonSelected")
         } else {
-            vClassButtonId.addEventListener("mouseenter", function () {
-                vClassButtonId.classList.add("classTypeButtonProposition")
+            vClassTypesDivButtons.addEventListener("mouseenter", function () {
+                vClassTypesDivButtons.classList.add("classTypeButtonProposition")
             })
-            vClassButtonId.addEventListener("mouseleave", function () {
-                vClassButtonId.classList.remove("classTypeButtonProposition")
+            vClassTypesDivButtons.addEventListener("mouseleave", function () {
+                vClassTypesDivButtons.classList.remove("classTypeButtonProposition")
             })
-
         }
-
-
     })
-
-
 };
-
 
 export function deleteClassTypesContainer() {
     vClassTypesContainer.classList.remove("classTypesContainerDisplay");

@@ -11,7 +11,6 @@ import {
     objUserSelections
 } from './index.js';
 
-
 import {
     weekdays
 } from 'moment';
@@ -24,7 +23,6 @@ import {
     deletePassengerTypesContainer
 } from "./dropDownPassengers";
 
-
 var vCalendarContainer = document.getElementById("calendarContainer");
 
 export function calendar(vStartDate) {
@@ -36,7 +34,6 @@ export function calendar(vStartDate) {
         //===== display calendar placeholder
         vCalendarContainer.classList.remove("calendarContainerHide");
         vCalendarContainer.classList.add("calendarContainerDisplay");
-
         //   console.log("aaaaaa" + vStartDate);
         let vTablePlaceholder = document.getElementById("tableCalendarPlaceHolder");
         let vCalendarMainDiv = document.createElement("div");
@@ -67,16 +64,11 @@ export function calendar(vStartDate) {
             vCalendarDiv.setAttribute("id", "CalendarDiv" + d);
             vCalendarDiv.classList.add("CalendarDivClass");
 
-
-
-
             //=== add month year headers for table
             let vCalendarDivMthHeader = document.createElement("div");
             vCalendarDiv.appendChild(vCalendarDivMthHeader);
             vCalendarDivMthHeader.setAttribute("id", "MonthHeader" + d);
             vCalendarDivMthHeader.classList.add("MonthHeader");
-
-
 
             let vCalendarNavIcon = document.createElement("i");
             let vCalendarMonthName = document.createElement("p");
@@ -154,6 +146,11 @@ export function calendarContent(vStartDate, vClikCounter, arrowCounter) {
                     let vCell = document.createElement("th");
                     vCell.appendChild(vCellValue);
                     vCalendarRow.appendChild(vCell);
+                    vCell.classList.add("classCellHeader");
+                    // add for weekend formatting 
+                    if (c > 5) {
+                        vCell.classList.add("classWeekend");
+                    }
                 } else {
                     //create table content
                     if (vCellCounter >= vBaseWeekDay && vCellCounter < vBaseWeekDay + vNumberDaysInMth) {
@@ -163,6 +160,10 @@ export function calendarContent(vStartDate, vClikCounter, arrowCounter) {
                         vCell.appendChild(vCellValue);
                         vCalendarRow.appendChild(vCell);
                         vCell.setAttribute("id", "calendarCells");
+                        vCell.classList.add("classAllDates");
+                        if (c > 5) {
+                            vCell.classList.add("classWeekend");
+                        }
 
                         //add a hidden content with date
                         let vDateCellValue = moment(vStartDateLoop).add(vDayValue - 1, "days").format(vDateFormat);
@@ -187,7 +188,6 @@ export function calendarContent(vStartDate, vClikCounter, arrowCounter) {
                             if (vDateCellValue > document.getElementById("takeOffDate").value &&
                                 vDateCellValue < document.getElementById("landingDate").value) {
                                 vCell.classList.add("cellCalendarBetweenDates");
-
                             }
                             // === cell action
 
@@ -201,42 +201,31 @@ export function calendarContent(vStartDate, vClikCounter, arrowCounter) {
                                     t = moment(document.getElementById("takeOffDate").value).format(vDateFormat);
                                     //  t = 1;
                                 }
-                                console.log("out" + vClikCounter);
+                                // console.log("out" + vClikCounter);
                                 // vClikCounter += 1;
-
-                                //=== condition to unable selection of period before first date selection
-                                // t = moment(document.getElementById("takeOffDate").value).format(vDateFormat);
-                                console.log("T" + t);
+                                // console.log("T" + t);
 
                                 let m = this.getAttribute("aria-label");
-                                console.log("M" + m);
+                                // console.log("M" + m);
                                 if (m > t) {
                                     vClikCounter += 1;
-                                    console.log("vClikCounter: " + vClikCounter);
+                                    //   console.log("vClikCounter: " + vClikCounter);
                                     cellsClasses(this, vClikCounter);
                                 }
-                                //20200606 added not working 
+                                //
                                 else if (!objUserSelections.firstSelectionDone && m < t) {
                                     vClikCounter += 1;
-                                    console.log("vClikCounterNew: " + vClikCounter);
+                                    //  console.log("vClikCounterNew: " + vClikCounter);
                                     cellsClasses(this, vClikCounter);
                                 }
-                                //  return vClikCounter
-                                // if (vClikCounter !== 0) {
-                                //     vCell.addEventListener("mouseover", cellMouseOver);
-                                // }
                             })
 
                             //function abc() {
-
                             vCell.addEventListener("mouseover", function () {
                                 if (vClikCounter !== 0) {
                                     cellMouseOver(this)
                                 }
                             });
-                            //}
-
-
                         }
 
                     } else {
@@ -248,37 +237,25 @@ export function calendarContent(vStartDate, vClikCounter, arrowCounter) {
                     }
                     vCellCounter += 1;
                 }
-
             }
             vRowCounter += 1;
-
         }
-        // document.getElementById("CalendarTable" + d).addEventListener("mouseout", function () {
-        //     let vCalendarCells = document.querySelectorAll("#calendarCells");
-        //     for (let i = 0; i < vCalendarCells.length; i++) {
-        //         vCalendarCells[i].classList.remove("cellCalendarBetweenDates")
-        //     }
-        // })
-
-        console.log("arrowCounter" + arrowCounter);
-        console.log("vClikCounter" + vClikCounter);
-
+        // console.log("arrowCounter" + arrowCounter);
+        //  console.log("vClikCounter" + vClikCounter);
     }
 }
-
 
 export default {
     calendar,
     calendarContent
 };
 
-
 let vChcekSth = 0;
 
 function cellsClasses(vClickedCell, iter) {
 
-    console.log(vClickedCell.getAttribute("aria-label"));
-    console.log("iter: " + iter);
+    // console.log(vClickedCell.getAttribute("aria-label"));
+    //  console.log("iter: " + iter);
 
     //=========remove initial selection 
     function clearCellsClass() {
@@ -306,34 +283,17 @@ function cellsClasses(vClickedCell, iter) {
 
             objUserSelections.firstSelectedDate = vFirstSelectedDate;
             objUserSelections.firstSelectionDone = true;
-            console.log(objUserSelections);
-
-            // document.getElementById("CalendarTable" + d).addEventListener("mouseout", function () {
-            //     let vCalendarCells = document.querySelectorAll("#calendarCells");
-            //     for (let i = 0; i < vCalendarCells.length; i++) {
-            //         vCalendarCells[i].classList.remove("cellCalendarBetweenDates")
-            //     }
-            // })
-            // let vCalendarSelections = document.querySelectorAll("#CalendarTable0 .cellCalendarSelected").length +
-            //     document.querySelectorAll("#CalendarTable1 .cellCalendarSelected").length
-            // console.log("vCalendarSelections" + vCalendarSelections);
-
-
-
+            //   console.log(objUserSelections);
             //  cellMouseOver()
         } else if (iter == 2) {
             vClickedCell.classList.add("cellCalendarSelected");
             document.getElementById("landingDate").value = vFirstSelectedDate;
+            objUserSelections.returnSelectedDate = vFirstSelectedDate;
 
             vCalendarContainer.classList.remove("calendarContainerDisplay");
             vCalendarContainer.classList.add("calendarContainerHide");
             document.getElementById("CalendarMainDiv").remove();
-
         }
-
-
-
-
 
     } else if (document.getElementById("whatWayCheckBox2").checked) {
         clearCellsClass()
@@ -344,12 +304,8 @@ function cellsClasses(vClickedCell, iter) {
         vCalendarContainer.classList.remove("calendarContainerDisplay");
         vCalendarContainer.classList.add("calendarContainerHide");
         document.getElementById("CalendarMainDiv").remove();
-
     }
 }
-
-
-
 
 function cellMouseOver(vClickedCell) {
     let vMouseOverDate = vClickedCell.getAttribute("aria-label");
@@ -360,18 +316,11 @@ function cellMouseOver(vClickedCell) {
         vCalendarCells[i].classList.remove("cellCalendarBetweenDates")
 
         let vTmpDate = vCalendarCells[i].getAttribute("aria-label");
-
-        //    console.log("vTmpDate" + vTmpDate);
-        //   console.log("vFirstSelectedDate" + vFirstSelectedDate);
-        //    console.log("vMouseOverDate" + vMouseOverDate);
-
         if (vTmpDate > document.getElementById("takeOffDate").value && vTmpDate < vMouseOverDate) {
             vCalendarCells[i].classList.add("cellCalendarBetweenDates");
             //  console.log("vTmpDate" + vTmpDate);
         }
     }
-
-
 }
 
 export function deleteCalendarContainer() {

@@ -1,31 +1,28 @@
-//import A320 from "!!file-loader!./../../img/svg/A320.svg"
 import style from "./../../css/res_index.scss";
 import A320 from '!!raw-loader!./../../img/svg/A320_2.txt';
-
-
+import EMB_175 from '!!raw-loader!./../../img/svg/EMB_175.txt';
+import loginPage from "./res_login";
 
 var objUserSelections = JSON.parse(localStorage.getItem('userSelection'));
-
-console.log(objUserSelections);
-
 var vJsonbinUrl = "https://api.jsonbin.io/b/5ee9192f0e966a7aa36acdbf";
-var vIataConnection = objUserSelections.connections.iataConnection;
+var vToIataConnection = objUserSelections.connections.toIataConnection;
+var vFromIataConnection = objUserSelections.connections.fromIataConnection;
 var vClassId = objUserSelections.classId;
 var arrOcupiedSeats = [];
 var arrSelectedSeats = [];
 var vPassengersNumber = objUserSelections.passengersNumber;
+var objConnections = {};
 
-console.log(vPassengersNumber);
-
-
-
+export {
+    objConnections,
+    vJsonbinUrl
+}
 
 //fetch with secret-key - working GET method
 export function fetchGetData() {
     fetch(vJsonbinUrl, {
             method: 'GET',
             withCredentials: true,
-            // credentials: 'include',
             headers: {
                 "secret-key": "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO",
                 'Content-Type': 'application/json'
@@ -35,171 +32,59 @@ export function fetchGetData() {
         .then((resp) => resp.json()) // Transform the data into json
         .then(function (data) {
             // console.log(data);
+            objConnections = data;
             myTestFunction(data)
         });
     // console.log(objUserSelections);
-    // .then(myTestFunction(data))
 };
-// fetch method PUT====================================================
 
-export function myTestFunction(arrConnections) {
-    console.log(arrConnections);
-    console.log(objUserSelections);
-    let vConnectionsNumber = arrConnections.connections.length;
+export function myTestFunction() {
+    //  console.log(objConnections);
+    //  console.log(objUserSelections);
+    let vConnectionsNumber = objConnections.connections.length;
     for (let i = 0; i < vConnectionsNumber; i++) {
         //        console.log(i);
-        let vConnectionIataName = arrConnections.connections[i].iataNames;
+        let vConnectionIataName = objConnections.connections[i].iataNames;
         //        console.log(vConnectionIataName);
-        if (vConnectionIataName == vIataConnection) {
-            let vPlaneType = arrConnections.connections[i].plane.type;
-            objUserSelections.planeType = arrConnections.connections[i].plane.type;
-            //let arrOcupiedSeats = arrConnections.connections[i].plane.occupiedSeats;
-            arrConnections.connections[i].plane.occupiedSeats.forEach(function (element, index) {
+        if (vConnectionIataName == vToIataConnection) {
+            let vPlaneType = objConnections.connections[i].plane.type;
+            objUserSelections.planeType = objConnections.connections[i].plane.type;
+            objConnections.connections[i].plane.occupiedSeats.forEach(function (element, index) {
                 objUserSelections.arrOcupiedSeats.push(element);
             });
-            console.log(objUserSelections);
+            //   console.log(objUserSelections);
             renderSvgPlane(vPlaneType);
             planeSeats();
+            connectionDescription();
         }
     }
-
 };
 
 fetchGetData();
-
-// export default {
-//     fetchGetData,
-//     tesst1
-// };
-
-
-var formData = '{"Sample2": "Hello World333333"}';
-
-//console.log(formData);
-export function fetchUpdateData() {
-    fetch(vJsonbinUrl, {
-            method: 'PUT',
-            body: formData,
-            withCredentials: true,
-            // credentials: 'include',
-            headers: {
-                "secret-key": "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO",
-                // 'Authorization': bearer,
-                // 'X-FP-API-KEY': 'iphone', //it can be iPhone or your any other attribute
-                'Content-Type': 'application/json',
-                "versioning": false
-            }
-        })
-        .then((resp) => resp.json()) // Transform the data into json
-};
-
-// fetch("https://api.jsonbin.io/b/5ee8b8f2ccc9877ac37cb832", {
-//         method: 'PUT',
-//         body: formData,
-//         withCredentials: true,
-//         // credentials: 'include',
-//         headers: {
-//             "secret-key": "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO",
-//             // 'Authorization': bearer,
-//             // 'X-FP-API-KEY': 'iphone', //it can be iPhone or your any other attribute
-//             'Content-Type': 'application/json',
-//             "versioning": false
-//         }
-//     })
-//     .then((resp) => resp.json()) // Transform the data into json
-// //.then(function (data) {
-// //    console.log(data);
-// // })
-// ;
-
-
-//create jsonbin bin
-// let req = new XMLHttpRequest();
-
-// req.onreadystatechange = () => {
-//     if (req.readyState == XMLHttpRequest.DONE) {
-//         console.log(req.responseText);
-//     }
-// };
-
-// req.open("POST", "https://api.jsonbin.io/b", true);
-// req.setRequestHeader("Content-Type", "application/json");
-// req.setRequestHeader("secret-key", "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO");
-// req.setRequestHeader("private", false);         //only for public bins
-// req.send('{"Sample": "Hello World"}');
-
-//read data - there is some delay in reading data
-// let req = new XMLHttpRequest();
-
-// req.onreadystatechange = () => {
-//     if (req.readyState == XMLHttpRequest.DONE) {
-//         console.log(req.responseText);
-//     }
-// };
-
-// req.open("GET", "https://api.jsonbin.io/b/5ee8b8f2ccc9877ac37cb832", true);
-// req.setRequestHeader("secret-key", "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO");
-// req.send();
-
-//update data
-// let req = new XMLHttpRequest();
-
-// req.onreadystatechange = () => {
-//     if (req.readyState == XMLHttpRequest.DONE) {
-//         console.log(req.responseText);
-//     }
-// };
-
-// req.open("PUT", "https://api.jsonbin.io/b/5ee8c01c0e966a7aa36a96e2", true);
-// req.setRequestHeader("Content-Type", "application/json");
-// req.setRequestHeader("secret-key", "$2b$10$Z.2i1QG1gyswhgidql5pQui6I9YqmCHkS9tLfhtK9ZWIaWDHQJuQO");
-// req.setRequestHeader("versioning", false);
-// req.send('{"Sample2": "Hello World2222"}');
-
-
-
-//let vTestP = document.createElement("p");
-// document.getElementById("seatsResPlane").appendChild(vTestP);
-// vTestP.innerHTML = "ewerwerwerwerwer weeewrewer werw ";
-// console.log(vTestP);
-
-
-// Using default hashed prefix (__[hash:base64:7]__)
-//var svg1 = require('./../../img/svg/A320.svg');
-//console.log(svg1);
-
-//console.log(A320);
 
 export function renderSvgPlane(vPlaneType) {
 
     var vtestSvg = document.createElement("p");
     document.getElementById("svgContainer").appendChild(vtestSvg);
-    // if (vPlaneType == "A320") {
-    //     vtestSvg.innerHTML = A320;
-    // }
     switch (vPlaneType) {
         case "A320":
             vtestSvg.innerHTML = A320;
             break;
-        case "747":
-            vtestSvg.innerHTML = 747;
+        case "EMB_175":
+            vtestSvg.innerHTML = EMB_175;
             break;
         case "244":
             vtestSvg.innerHTML = 244;
             break;
         default:
-            console.log("cannot load svg for plane: " + vPlaneType);
+            //   console.log("cannot load svg for plane: " + vPlaneType);
     }
-
-
 };
 
-
 function planeSeats() {
-
     let vCounter = 0;
     let testSpan = document.createElement("text");
-    for (let i = 1; i <= 3; i++) {
+    for (let i = 1; i <= 3; i++) { //classes loop
         if (i == vClassId) {
             var arrSeats = document.getElementById("class" + i);
             var myRects = Array.from(arrSeats.querySelectorAll("rect"));
@@ -210,7 +95,7 @@ function planeSeats() {
                 } else {
                     element.classList.add("availableSeat");
                     //------initial seats selection
-                    if (vCounter < vPassengersNumber) {
+                    if (vCounter < vPassengersNumber) { //passanger number check
                         selectedSeat(element)
                     }
                     vCounter = vCounter++
@@ -218,48 +103,27 @@ function planeSeats() {
                     element.addEventListener("click", function () {
                         selectedSeat(element)
                     }, false);
-                    // add some tooltip
-                    // document.getElementById(element.id).
-                    // element.appendChild(testSpan);
-                    // testSpan.classList.add("testSpan");
-                    // testSpan.textContent = element.id;
-
                 };
-                console.log(element.id); //wartość id - pozwala na porównanie z potencjalnym json
-                // console.log(element)
+                //   console.log(element.id); 
             })
 
         } else {
             var arrSeats = document.getElementById("class" + i);
             var myRects = Array.from(arrSeats.querySelectorAll("rect"));
             myRects.forEach(function (element, index) {
-
                 element.classList.add("unavailableSeats");
             })
         }
-
     }
-
-
-
 }
 
 
 function selectedSeat(element) {
-    // if (document.querySelectorAll(".selecteSeat").length < 3) {
-    //     element.classList.toggle("selecteSeat");
-
-    // } else {
-    //     element.classList.remove("selecteSeat");
-    // }
-
-
     if (arrSelectedSeats.includes(element.id)) {
         element.classList.remove("selecteSeat");
         arrSelectedSeats.forEach(function (takenSeats, index) {
             if (arrSelectedSeats[index] == element.id) {
                 arrSelectedSeats.splice(index, 1);
-
             }
         })
     } else {
@@ -269,7 +133,75 @@ function selectedSeat(element) {
         }
     };
 
-    console.log(element.id);
-    console.log(arrSelectedSeats)
+    //   console.log(element.id);
+    //   console.log(arrSelectedSeats)
+    document.getElementById("res-from-info6").textContent = arrSelectedSeats.join(', ');
+    document.getElementById("res-to-info6").textContent = arrSelectedSeats.join(', ');
+}
 
+
+function connectionDescription() {
+    //   console.log(objUserSelections.passengers);
+    var typePassengers = "";
+    let vSignBetween = "";
+    Object.keys(objUserSelections.passengers).forEach(function (key, index) {
+        //      console.log(objUserSelections.passengers[key]);
+        if (objUserSelections.passengers[key] != 0) {
+            if (index == 0) {
+                let vSignBetween = ""
+            } else {
+                vSignBetween = "; "
+            };
+            typePassengers = objUserSelections.passengers[key] + " " + key + vSignBetween + typePassengers
+        }
+    });
+
+    if (objUserSelections.way == 1) {
+        document.getElementById("res-descContainerFrom").classList.remove("res-descContainerFromHidden");
+        document.getElementById("res-descContainerFrom").classList.add("res-descContainerFrom");
+    } else {
+        (objUserSelections.way == 2)
+        document.getElementById("res-descContainerFrom").classList.remove("res-descContainerFromHidden");
+        document.getElementById("res-descContainerFrom").classList.add("res-descContainerFrom");
+        document.getElementById("res-descContainerTo").classList.remove("res-descContainerToHidden");
+        document.getElementById("res-descContainerTo").classList.add("res-descContainerTo");
+    };
+
+    document.getElementById("res-from-info1").textContent = objUserSelections.connections.fromAirport;
+    document.getElementById("res-from-info2").textContent = objUserSelections.connections.toAirport;
+    document.getElementById("res-from-info3").textContent = objUserSelections.firstSelectedDate;
+    document.getElementById("res-from-info4").textContent = typePassengers;
+    document.getElementById("res-from-info5").textContent = objUserSelections.classType;
+    document.getElementById("res-from-info6").textContent = arrSelectedSeats.join(', ');
+
+    document.getElementById("res-to-info1").textContent = objUserSelections.connections.toAirport;
+    document.getElementById("res-to-info2").textContent = objUserSelections.connections.fromAirport;
+    document.getElementById("res-to-info3").textContent = objUserSelections.returnSelectedDate;
+    document.getElementById("res-to-info4").textContent = typePassengers;
+    document.getElementById("res-to-info5").textContent = objUserSelections.classType;
+    document.getElementById("res-to-info6").textContent = arrSelectedSeats.join(', ');
+    // console.log("test: " + arrSelectedSeats[1]);
+}
+
+document.getElementById("resConfirmationButton").addEventListener("click", function () {
+
+    document.getElementById("loginWrapper").classList.remove("login-wrapper-hidden");
+    document.getElementById("loginWrapper").classList.add("login-wrapper");
+    document.getElementById("page-cover").classList.remove("page-cover-hidden");
+    document.getElementById("page-cover").classList.add("page-cover");
+    updateObjConnections();
+    loginPage()
+})
+
+
+function updateObjConnections() {
+    let vConnectionsNumber = objConnections.connections.length;
+    for (let i = 0; i < vConnectionsNumber; i++) {
+        let vConnectionIataName = objConnections.connections[i].iataNames;
+        if (vConnectionIataName == vToIataConnection) { //if iata connection is equal to selected
+            arrSelectedSeats.forEach(function (element, index) { //push selected seats to correct arrConnection
+                objConnections.connections[i].plane.occupiedSeats.push(element);
+            });
+        }
+    }
 }
